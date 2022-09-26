@@ -50,3 +50,17 @@ type Program struct {
 		} `json:"submissions,omitempty"`
 	} `json:"relationships,omitempty"`
 }
+
+type ProgramResponse struct {
+	Data     Program        `json:"data,omitempty"`
+	Included []ProgramBrief `json:"included,omitempty"`
+	Meta     Meta           `json:"meta,omitempty"`
+	Links    Links          `json:"links,omitempty"`
+}
+
+type ProgramsResponse struct {
+	Data     []Program      `json:"data,omitempty"`
+	Included []ProgramBrief `json:"included,omitempty"`
+	Meta     Meta           `json:"meta,omitempty"`
+	Links    Links          `json:"links,omitempty"`
+}

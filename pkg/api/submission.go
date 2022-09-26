@@ -206,20 +206,6 @@ type Submission struct {
 	} `json:"relationships,omitempty"`
 }
 
-type SubmissionResponse struct {
-	Data     Submission `json:"data,omitempty"`
-	Included []Program  `json:"included,omitempty"`
-	Meta     Meta       `json:"meta,omitempty"`
-	Links    Links      `json:"links,omitempty"`
-}
-
-type SubmissionsResponse struct {
-	Data     []Submission `json:"data,omitempty"`
-	Included []Program    `json:"included,omitempty"`
-	Meta     Meta         `json:"meta,omitempty"`
-	Links    Links        `json:"links,omitempty"`
-}
-
 type SubmissionQuery struct {
 	Id     string
 	Fields struct {
@@ -281,4 +267,18 @@ type SubmissionData struct {
 			} `json:"program,omitempty"`
 		} `json:"relationships,omitempty"`
 	} `json:"data,omitempty"`
+}
+
+type SubmissionResponse struct {
+	Data     Submission `json:"data,omitempty"`
+	Included []Program  `json:"included,omitempty"`
+	Meta     Meta       `json:"meta,omitempty"`
+	Links    Links      `json:"links,omitempty"`
+}
+
+type SubmissionsResponse struct {
+	Data     []Submission `json:"data,omitempty"`
+	Included []Program    `json:"included,omitempty"`
+	Meta     Meta         `json:"meta,omitempty"`
+	Links    Links        `json:"links,omitempty"`
 }
