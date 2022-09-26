@@ -25,3 +25,10 @@ func main() {
 	}
 }
 ```
+
+
+License 📝
+-------
+
+This repository is under [MIT License](https://github.com/edoardottt/bugcrowd-go/blob/main/LICENSE).  
+[edoardoottavianelli.it](https://www.edoardoottavianelli.it) to contact me.
