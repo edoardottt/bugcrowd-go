@@ -27,8 +27,6 @@ type transport struct {
 func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	var response *http.Response
 
-	req.SetBasicAuth(t.username, t.password)
-
 	options := []retry.Option{
 		retry.Delay(Delay),
 		retry.DelayType(retry.BackOffDelay),

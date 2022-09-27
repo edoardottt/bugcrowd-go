@@ -15,13 +15,22 @@ import (
 	"fmt"
 
 	bugcrowd "github.com/edoardottt/bugcrowd-go"
+	"github.com/edoardottt/bugcrowd-go/pkg/api"
 )
 
 func main() {
-	b := bugcrowd.New("your-username-here", "your-password-here")
-	submissions, _, _ := b.Services.FetchSubmissions(context.TODO(), nil)
+	b := bugcrowd.New("username", "token")
+
+	queryOptions := api.SubmissionQuery{}
+	pageOptions := api.PageOptions{}
+	submissions, _, err := b.Services.FetchSubmissions(context.TODO(), &queryOptions, &pageOptions)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	for _, submission := range submissions.Data {
-		fmt.Println(submission.Id)
+		fmt.Println(submission.ID)
 	}
 }
 ```

@@ -9,8 +9,8 @@ type API struct {
 	Services *services.API
 }
 
-func New(username, password string) *API {
-	c := client.New(username, password)
+func New(username, token string) *API {
+	c := client.New(username, token)
 
 	return &API{
 		Services: services.New(c),

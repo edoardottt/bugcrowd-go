@@ -64,8 +64,8 @@ func (a *API) UpdateSubmission(ctx context.Context, queryOptions *api.Submission
 
 // FetchSubmissions returns a filtered list of submissions based on tokenized search and sort parameters.
 func (a *API) FetchSubmissions(ctx context.Context, queryOptions *api.SubmissionQuery,
-	pageOptions *api.PageOptions) (submissions api.SubmissionResponse, offset int, err error) {
-	var response api.SubmissionResponse
+	pageOptions *api.PageOptions) (submissions api.SubmissionsResponse, offset int, err error) {
+	var response api.SubmissionsResponse
 
 	path := fmt.Sprintf(
 		`/submissions?fields[activity]=%s&fields[claim_ticket]=%s&fields[comment]=%s`+
@@ -115,8 +115,9 @@ func (a *API) FetchSubmissions(ctx context.Context, queryOptions *api.Submission
 		queryOptions.Filters.Vrt,
 		queryOptions.Sort,
 	)
+
 	if err := a.client.Get(ctx, path, &response); err != nil {
-		return api.SubmissionResponse{}, 0, err
+		return api.SubmissionsResponse{}, 0, err
 	}
 
 	if response.Links.Next != "" {

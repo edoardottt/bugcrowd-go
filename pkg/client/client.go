@@ -23,15 +23,15 @@ const (
 type Client struct {
 	baseURL    string
 	underlying *http.Client
+	username   string
+	token      string
 }
 
-func New(username, password string, options ...Option) *Client {
+func New(username, token string, options ...Option) *Client {
 	c := &Client{
 		baseURL: defaultBaseURL,
 		underlying: &http.Client{
 			Transport: &transport{
-				username: username,
-				password: password,
 				underlying: http.Transport{
 					Proxy: http.ProxyFromEnvironment,
 					DialContext: (&net.Dialer{
@@ -46,6 +46,8 @@ func New(username, password string, options ...Option) *Client {
 				},
 			},
 		},
+		username: username,
+		token:    token,
 	}
 	for _, opt := range options {
 		opt(c)
@@ -70,6 +72,8 @@ func (c *Client) do(ctx context.Context, method, path string, target interface{}
 
 	req.Header.Set("Accept", "application/vnd.bugcrowd.v4+json")
 	req.Header.Set("Bugcrowd-Version", "2021-10-28")
+	req.Header.Set("Authorization", "Token "+c.username+":"+c.token)
+
 	resp, err := c.underlying.Do(req)
 
 	if err != nil {
