@@ -243,9 +243,9 @@ type SubmissionQuery struct {
 		TargetType string
 		Updated    string
 		Vrt        string
-		Sort       string
 	}
 	Include string
+	Sort    string
 }
 
 type SubmissionData struct {

@@ -54,3 +54,24 @@ type Target struct {
 		Previous string `json:"previous,omitempty"`
 	} `json:"links,omitempty"`
 }
+
+type TargetQuery struct {
+	Id     string
+	Fields struct {
+		Organization string
+		Target       string
+	}
+	Filter struct {
+		OrganizationId string
+		TargetId       string
+	}
+	Include string
+	Sort    string
+}
+
+type TargetsResponse struct {
+	Data     []Target       `json:"data,omitempty"`
+	Included []Organization `json:"included,omitempty"`
+	Meta     Meta           `json:"meta,omitempty"`
+	Links    Links          `json:"links,omitempty"`
+}

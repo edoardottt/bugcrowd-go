@@ -28,3 +28,13 @@ type Comment struct {
 		} `json:"links,omitempty"`
 	} `json:"data,omitempty"`
 }
+
+type CommentData struct {
+	Data struct {
+		Type       string `json:"type,omitempty"`
+		Attributes struct {
+			Body            string `json:"body,omitempty"`
+			VisibilityScope string `json:"visibility_scope,omitempty"`
+		} `json:"attributes,omitempty"`
+	} `json:"data,omitempty"`
+}

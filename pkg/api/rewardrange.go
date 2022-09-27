@@ -2,7 +2,7 @@ package api
 
 import "time"
 
-type Reward struct {
+type RewardRange struct {
 	Data struct {
 		ID struct {
 			Ref string `json:"$ref,omitempty"`

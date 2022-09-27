@@ -51,6 +51,24 @@ type Program struct {
 	} `json:"relationships,omitempty"`
 }
 
+type ProgramQuery struct {
+	Id     string
+	Fields struct {
+		Organization string
+		Program      string
+		ProgramBrief string
+		RewardRange  string
+		Submission   string
+		Target       string
+		TargetGroup  string
+	}
+	Filter struct {
+		Id string
+	}
+	Include string
+	Sort    string
+}
+
 type ProgramResponse struct {
 	Data     Program        `json:"data,omitempty"`
 	Included []ProgramBrief `json:"included,omitempty"`

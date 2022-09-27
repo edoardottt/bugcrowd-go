@@ -39,3 +39,19 @@ type ClaimTicket struct {
 		} `json:"links,omitempty"`
 	} `json:"data,omitempty"`
 }
+
+type ClaimTicketData struct {
+	Data struct {
+		Type          string `json:"type,omitempty"`
+		Relationships struct {
+			Submissions struct {
+				Data []struct {
+					Type string `json:"type,omitempty"`
+					ID   struct {
+						Ref string `json:"$ref,omitempty"`
+					} `json:"id,omitempty"`
+				} `json:"data,omitempty"`
+			} `json:"submissions,omitempty"`
+		} `json:"relationships,omitempty"`
+	} `json:"data,omitempty"`
+}

@@ -8,7 +8,8 @@ import (
 )
 
 // FetchSubmission returns a single submission by UUID.
-func (a *API) FetchSubmission(ctx context.Context, queryOptions *api.SubmissionQuery) (submission api.SubmissionResponse, err error) {
+func (a *API) FetchSubmission(ctx context.Context, queryOptions *api.SubmissionQuery) (submission api.SubmissionResponse,
+	err error) {
 	var response api.SubmissionResponse
 	path := fmt.Sprintf(
 		`/submissions/%s?fields[activity]=%s&fields[claim_ticket]=%s&`+
@@ -45,7 +46,8 @@ func (a *API) FetchSubmission(ctx context.Context, queryOptions *api.SubmissionQ
 }
 
 // UpdateSubmission updates a single submission by UUID.
-func (a *API) UpdateSubmission(ctx context.Context, queryOptions *api.SubmissionQuery, dataOptions *api.SubmissionData) (submission api.SubmissionResponse, err error) {
+func (a *API) UpdateSubmission(ctx context.Context, queryOptions *api.SubmissionQuery,
+	dataOptions *api.SubmissionData) (submission api.SubmissionResponse, err error) {
 	var response api.SubmissionResponse
 	path := fmt.Sprintf(
 		`/submissions/%s`,
@@ -59,8 +61,9 @@ func (a *API) UpdateSubmission(ctx context.Context, queryOptions *api.Submission
 }
 
 // FetchSubmissions returns a filtered list of submissions based on tokenized search and sort parameters.
-func (a *API) FetchSubmissions(ctx context.Context, queryOptions *api.SubmissionQuery, pageOptions *api.PageOptions) (submissions []api.SubmissionResponse, err error) {
-	var response []api.SubmissionResponse
+func (a *API) FetchSubmissions(ctx context.Context, queryOptions *api.SubmissionQuery,
+	pageOptions *api.PageOptions) (submissions api.SubmissionResponse, offset int, err error) {
+	var response api.SubmissionResponse
 	path := fmt.Sprintf(
 		`/submissions?fields[activity]=%s&fields[claim_ticket]=%s&fields[comment]=%s`+
 			`&fields[cvss_vector]=%s&fields[external_issue]=%s&fields[file_attachment]=%s`+
@@ -107,17 +110,21 @@ func (a *API) FetchSubmissions(ctx context.Context, queryOptions *api.Submission
 		queryOptions.Filters.TargetType,
 		queryOptions.Filters.Updated,
 		queryOptions.Filters.Vrt,
-		queryOptions.Filters.Sort,
+		queryOptions.Sort,
 	)
 	if err := a.client.Get(ctx, path, &response); err != nil {
-		return []api.SubmissionResponse{}, err
+		return api.SubmissionResponse{}, 0, err
 	}
 
-	return response, nil
+	if response.Links.Next != "" {
+		offset = pageOptions.GetOffset() + 50
+	}
+
+	return response, offset, nil
 }
 
 // CreateSubmission creates a submission within a program.
-func (a *API) CreateSubmission(ctx context.Context, queryOptions *api.SubmissionQuery, dataOptions *api.SubmissionData) (submission api.SubmissionResponse, err error) {
+func (a *API) CreateSubmission(ctx context.Context, dataOptions *api.SubmissionData) (submission api.SubmissionResponse, err error) {
 	var response api.SubmissionResponse
 	path := `/submissions`
 	if err := a.client.Post(ctx, path, &response, dataOptions); err != nil {
