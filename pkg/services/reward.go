@@ -8,13 +8,14 @@ import (
 )
 
 // FetchReward returns a single monetary reward by UUID.
-func (a *API) FetchReward(ctx context.Context, queryOptions *api.MonetaryRewardQuery) (reward api.MonetaryRewardResponse,
-	err error) {
+func (a *API) FetchReward(ctx context.Context,
+	queryOptions *api.MonetaryRewardQuery) (reward api.MonetaryRewardResponse, err error) {
 	var response api.MonetaryRewardResponse
+
 	path := fmt.Sprintf(
 		`/monetary_rewards/%s?fields[identity]=%s&fields[monetary_reward]=%s`+
 			`&fields[payment]=%s&fields[submission]=%s&include=%s`,
-		queryOptions.Id,
+		queryOptions.ID,
 		queryOptions.Fields.Identity,
 		queryOptions.Fields.MonetaryReward,
 		queryOptions.Fields.Payment,
@@ -32,9 +33,10 @@ func (a *API) FetchReward(ctx context.Context, queryOptions *api.MonetaryRewardQ
 func (a *API) UpdateReward(ctx context.Context, queryOptions *api.MonetaryRewardQuery,
 	dataOptions *api.MonetaryRewardData) (reward api.MonetaryRewardResponse, err error) {
 	var response api.MonetaryRewardResponse
+
 	path := fmt.Sprintf(
 		`/monetary_rewards/%s`,
-		queryOptions.Id,
+		queryOptions.ID,
 	)
 	if err := a.client.Patch(ctx, path, &response, dataOptions); err != nil {
 		return api.MonetaryRewardResponse{}, err
@@ -44,8 +46,10 @@ func (a *API) UpdateReward(ctx context.Context, queryOptions *api.MonetaryReward
 }
 
 // CreateReward creates a new monetary reward for a submission.
-func (a *API) CreateReward(ctx context.Context, dataOptions *api.MonetaryRewardData) (reward api.MonetaryRewardResponse, err error) {
+func (a *API) CreateReward(ctx context.Context,
+	dataOptions *api.MonetaryRewardData) (reward api.MonetaryRewardResponse, err error) {
 	var response api.MonetaryRewardResponse
+
 	path := `/monetary_rewards`
 	if err := a.client.Post(ctx, path, &response, dataOptions); err != nil {
 		return api.MonetaryRewardResponse{}, err

@@ -44,7 +44,7 @@ type Organization struct {
 }
 
 type OrganizationQuery struct {
-	Id     string
+	ID     string
 	Fields struct {
 		Organization string
 		Program      string

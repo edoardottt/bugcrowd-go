@@ -10,7 +10,6 @@ type API struct {
 }
 
 func New(username, password string) *API {
-
 	c := client.New(username, password)
 
 	return &API{

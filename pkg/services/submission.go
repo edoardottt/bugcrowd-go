@@ -8,9 +8,10 @@ import (
 )
 
 // FetchSubmission returns a single submission by UUID.
-func (a *API) FetchSubmission(ctx context.Context, queryOptions *api.SubmissionQuery) (submission api.SubmissionResponse,
-	err error) {
+func (a *API) FetchSubmission(ctx context.Context,
+	queryOptions *api.SubmissionQuery) (submission api.SubmissionResponse, err error) {
 	var response api.SubmissionResponse
+
 	path := fmt.Sprintf(
 		`/submissions/%s?fields[activity]=%s&fields[claim_ticket]=%s&`+
 			`fields[comment]=%s&fields[cvss_vector]=%s&`+
@@ -20,7 +21,7 @@ func (a *API) FetchSubmission(ctx context.Context, queryOptions *api.SubmissionQ
 			`fields[program]=%s&fields[program_brief]=%s&`+
 			`fields[submission]=%s&fields[target]=%s&`+
 			`fields[target_group]=%s&include=%s`,
-		queryOptions.Id,
+		queryOptions.ID,
 		queryOptions.Fields.Activity,
 		queryOptions.Fields.ClaimTicket,
 		queryOptions.Fields.Comment,
@@ -49,9 +50,10 @@ func (a *API) FetchSubmission(ctx context.Context, queryOptions *api.SubmissionQ
 func (a *API) UpdateSubmission(ctx context.Context, queryOptions *api.SubmissionQuery,
 	dataOptions *api.SubmissionData) (submission api.SubmissionResponse, err error) {
 	var response api.SubmissionResponse
+
 	path := fmt.Sprintf(
 		`/submissions/%s`,
-		queryOptions.Id,
+		queryOptions.ID,
 	)
 	if err := a.client.Patch(ctx, path, &response, dataOptions); err != nil {
 		return api.SubmissionResponse{}, err
@@ -64,6 +66,7 @@ func (a *API) UpdateSubmission(ctx context.Context, queryOptions *api.Submission
 func (a *API) FetchSubmissions(ctx context.Context, queryOptions *api.SubmissionQuery,
 	pageOptions *api.PageOptions) (submissions api.SubmissionResponse, offset int, err error) {
 	var response api.SubmissionResponse
+
 	path := fmt.Sprintf(
 		`/submissions?fields[activity]=%s&fields[claim_ticket]=%s&fields[comment]=%s`+
 			`&fields[cvss_vector]=%s&fields[external_issue]=%s&fields[file_attachment]=%s`+
@@ -117,15 +120,17 @@ func (a *API) FetchSubmissions(ctx context.Context, queryOptions *api.Submission
 	}
 
 	if response.Links.Next != "" {
-		offset = pageOptions.GetOffset() + 50
+		offset = pageOptions.GetOffset() + api.DefaultPageOffsetIncrement
 	}
 
 	return response, offset, nil
 }
 
 // CreateSubmission creates a submission within a program.
-func (a *API) CreateSubmission(ctx context.Context, dataOptions *api.SubmissionData) (submission api.SubmissionResponse, err error) {
+func (a *API) CreateSubmission(ctx context.Context,
+	dataOptions *api.SubmissionData) (submission api.SubmissionResponse, err error) {
 	var response api.SubmissionResponse
+
 	path := `/submissions`
 	if err := a.client.Post(ctx, path, &response, dataOptions); err != nil {
 		return api.SubmissionResponse{}, err

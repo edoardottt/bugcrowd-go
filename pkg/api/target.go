@@ -56,14 +56,14 @@ type Target struct {
 }
 
 type TargetQuery struct {
-	Id     string
+	ID     string
 	Fields struct {
 		Organization string
 		Target       string
 	}
 	Filter struct {
-		OrganizationId string
-		TargetId       string
+		OrganizationID string
+		TargetID       string
 	}
 	Include string
 	Sort    string

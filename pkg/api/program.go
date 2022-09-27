@@ -52,7 +52,7 @@ type Program struct {
 }
 
 type ProgramQuery struct {
-	Id     string
+	ID     string
 	Fields struct {
 		Organization string
 		Program      string
@@ -63,7 +63,7 @@ type ProgramQuery struct {
 		TargetGroup  string
 	}
 	Filter struct {
-		Id string
+		OrganizationID string
 	}
 	Include string
 	Sort    string

@@ -207,7 +207,7 @@ type Submission struct {
 }
 
 type SubmissionQuery struct {
-	Id     string
+	ID     string
 	Fields struct {
 		Activity       string
 		ClaimTicket    string

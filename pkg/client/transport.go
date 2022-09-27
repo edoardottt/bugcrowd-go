@@ -11,6 +11,13 @@ import (
 	"github.com/avast/retry-go"
 )
 
+const (
+	Attempts = 10
+	Delay    = time.Millisecond * 100
+	Error400 = 400
+	Error500 = 500
+)
+
 type transport struct {
 	underlying http.Transport
 	username   string
@@ -19,33 +26,39 @@ type transport struct {
 
 func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	var response *http.Response
+
 	req.SetBasicAuth(t.username, t.password)
+
 	options := []retry.Option{
-		retry.Delay(time.Millisecond * 100),
+		retry.Delay(Delay),
 		retry.DelayType(retry.BackOffDelay),
-		retry.Attempts(10),
+		retry.Attempts(Attempts),
 		retry.LastErrorOnly(true),
 	}
+
 	if err := retry.Do(func() error {
 		resp, err := t.underlying.RoundTrip(req)
 		if err != nil {
 			return err
 		}
-		if resp.StatusCode >= 400 {
+
+		if resp.StatusCode >= Error400 {
 			defer func() { _ = resp.Body.Close() }()
 			var apiError api.Error
 			if err := json.NewDecoder(resp.Body).Decode(&apiError); err != nil || apiError.Status == 0 {
-				return fmt.Errorf("server error: status %d", resp.StatusCode)
+				return fmt.Errorf("server error: %v %v - %w", ErrStatus, resp.StatusCode, err)
 			}
-			if resp.StatusCode < 500 {
+			if resp.StatusCode < Error500 {
 				return retry.Unrecoverable(&apiError)
 			}
 			return &apiError
 		}
+
 		response = resp
 		return nil
 	}, options...); err != nil {
 		return nil, err
 	}
+
 	return response, nil
 }

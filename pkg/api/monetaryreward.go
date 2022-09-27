@@ -76,7 +76,7 @@ type MonetaryRewardResponse struct {
 }
 
 type MonetaryRewardQuery struct {
-	Id     string
+	ID     string
 	Fields struct {
 		Identity       string
 		MonetaryReward string
