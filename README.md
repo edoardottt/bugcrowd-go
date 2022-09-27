@@ -5,7 +5,7 @@ Simple Golang client you can use in order to interact with Bugcrowd API. See the
 
 Inspired by [liamg/hackerone](https://github.com/liamg/hackerone).
 
-Usage
+Usage 🚀
 -------
 ```Go
 package main
@@ -34,6 +34,17 @@ func main() {
 	}
 }
 ```
+
+Contributing 🛠
+-------
+
+Just open an [issue](https://github.com/edoardottt/bugcrowd-go/issues) / [pull request](https://github.com/edoardottt/bugcrowd-go/pulls).
+
+Before opening a pull request, download [golangci-lint](https://golangci-lint.run/usage/install/) and run
+```bash
+golangci-lint run
+```
+If there aren't errors, go ahead :)
 
 
 License 📝
