@@ -20,8 +20,6 @@ const (
 
 type transport struct {
 	underlying http.Transport
-	username   string
-	password   string
 }
 
 func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
