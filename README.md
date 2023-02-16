@@ -1,7 +1,9 @@
 # bugcrowd-go
 Simple Golang client to interact with Bugcrowd API. See the [API documentation here](https://docs.bugcrowd.com/api/2021-10-28/).  
 
-Inspired by [liamg/hackerone](https://github.com/liamg/hackerone).
+<a href="https://edoardoottavianelli.it">
+	<img src="https://github.com/edoardottt/bugcrowd-go/actions/workflows/go.yml/badge.svg" alt="workflows" />
+</a>
 
 Usage 🚀
 -------
@@ -44,6 +46,7 @@ golangci-lint run
 ```
 If there aren't errors, go ahead :)
 
+Inspired by [liamg/hackerone](https://github.com/liamg/hackerone).
 
 License 📝
 -------
