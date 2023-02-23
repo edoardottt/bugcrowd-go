@@ -2,7 +2,10 @@
 Simple Golang client to interact with Bugcrowd API. See the [API documentation here](https://docs.bugcrowd.com/api/2021-10-28/).  
 
 <a href="https://github.com/edoardottt/bugcrowd-go/actions">
-	<img src="https://github.com/edoardottt/bugcrowd-go/actions/workflows/go.yml/badge.svg" alt="workflows" />
+    <img src="https://github.com/edoardottt/bugcrowd-go/actions/workflows/go.yml/badge.svg" alt="workflows" />
+</a>
+<a href="https://goreportcard.com/report/github.com/edoardottt/bugcrowd-go">
+    <img src="https://goreportcard.com/badge/github.com/edoardottt/bugcrowd-go" alt="goreportcard" />
 </a>
 
 Usage 🚀
